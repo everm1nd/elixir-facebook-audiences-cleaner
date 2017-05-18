@@ -3,6 +3,8 @@ defmodule FacebookAudienceCleaner do
     start
     adsets.body
     |> parse
+    |> fetch_data
+    |> get_audiences
     |> IO.inspect
   end
 
@@ -39,6 +41,24 @@ defmodule FacebookAudienceCleaner do
   end
 
   defp parse(response_body) do
-    Poison.Parser.parse! response_body
+    Poison.Parser.parse! response_body, keys: :atoms
+  end
+
+  defp fetch_data(%{data: data}) do
+    data
+  end
+
+  defp get_audiences(ad_sets) do
+    Enum.map(ad_sets, fn(ad_set) ->
+      get_custom_audiences(ad_set) ++ get_excluded_custom_audiences(ad_set)
+    end)
+  end
+
+  defp get_custom_audiences(ad_set) do
+    ad_set[:targeting][:custom_audiences] || []
+  end
+
+  defp get_excluded_custom_audiences(ad_set) do
+    ad_set[:targeting][:excluded_custom_audiences] || []
   end
 end
