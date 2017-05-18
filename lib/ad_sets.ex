@@ -7,6 +7,7 @@ defmodule AdSets do
     |> parse
     |> fetch_data
     |> get_audiences
+    |> List.flatten
   end
 
   defp adsets do
