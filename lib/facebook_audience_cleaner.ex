@@ -2,6 +2,7 @@ defmodule FacebookAudienceCleaner do
   def clean do
     start
     adsets.body
+    |> parse
     |> IO.inspect
   end
 
@@ -35,5 +36,9 @@ defmodule FacebookAudienceCleaner do
 
   defp access_token do
     System.get_env("ACCESS_TOKEN")
+  end
+
+  defp parse(response_body) do
+    Poison.Parser.parse! response_body
   end
 end
