@@ -3,7 +3,8 @@ defmodule FacebookAudienceCleaner do
 
   def clean do
     start
-    AdSets.get
+    AdSets.get_adsets
+    |> AdSets.extract_audiences
     |> IO.inspect
   end
 

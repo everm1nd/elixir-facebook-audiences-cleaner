@@ -2,16 +2,15 @@ defmodule AdSets do
   import FacebookApi
   import FacebookApiConfig
 
-  def get do
-    adsets.body
-    |> parse
-    |> fetch_data
-    |> get_audiences
-    |> List.flatten
+  def get_adsets do
+    response = request adsets_url(ad_account_id), adsets_params
+    log_progress response
+    get_resource(response[:data], response)
   end
 
-  defp adsets do
-    HTTPotion.get adsets_url(ad_account_id), query: adsets_params
+  def extract_audiences(ad_sets) do
+    Enum.map(ad_sets, &(get_custom_audiences(&1) ++ get_excluded_custom_audiences(&1)))
+    |> List.flatten
   end
 
   defp adsets_params do
@@ -22,12 +21,6 @@ defmodule AdSets do
 
   defp adsets_url(ad_account_id) do
      "https://graph.facebook.com/v2.9/act_#{ad_account_id}/adsets"
-  end
-
-  defp get_audiences(ad_sets) do
-    Enum.map(ad_sets, fn(ad_set) ->
-      get_custom_audiences(ad_set) ++ get_excluded_custom_audiences(ad_set)
-    end)
   end
 
   defp get_custom_audiences(ad_set) do
