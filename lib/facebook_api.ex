@@ -22,7 +22,7 @@ defmodule FacebookApi do
   end
 
   defp request(url, params \\ %{}) do
-    (HTTPotion.get url, query: params).body |> parse
+    (Tesla.get url, query: params).body |> parse
   end
 
   defp log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do

@@ -14,7 +14,7 @@ defmodule FacebookAudienceCleaner.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [ applications: [:httpotion] ]
+    []
   end
 
   # Dependencies can be Hex packages:
@@ -28,8 +28,8 @@ defmodule FacebookAudienceCleaner.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpotion, "~> 3.0.2"},
-      {:poison, "~> 3.0"}
+      {:poison, "~> 3.0"},
+      {:tesla, "~> 0.7.0"}
     ]
   end
 end
