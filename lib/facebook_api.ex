@@ -25,11 +25,11 @@ defmodule FacebookApi do
     (Tesla.get url, query: params).body |> parse
   end
 
-  defp log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
-    IO.puts "got block #{after_cursor}"
-  end
-
   defp parse(response_body) do
     Poison.Parser.parse! response_body, keys: :atoms
+  end
+
+  defp log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
+    IO.puts "got block #{after_cursor}"
   end
 end
