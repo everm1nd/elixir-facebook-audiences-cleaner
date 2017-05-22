@@ -7,6 +7,10 @@ defmodule FacebookApi do
     }
   end
 
+  def base_url do
+    "https://graph.facebook.com/v2.9/act_#{ad_account_id}"
+  end
+
   def get(resource_url, params) do
     get_resource([], request(resource_url, params))
   end

@@ -3,7 +3,7 @@ defmodule AdSets do
   import FacebookApiConfig
 
   def get_adsets do
-    FacebookApi.get adsets_url(ad_account_id), adsets_params
+    FacebookApi.get adsets_url, adsets_params
   end
 
   def extract_audiences(ad_sets) do
@@ -17,8 +17,8 @@ defmodule AdSets do
     })
   end
 
-  defp adsets_url(ad_account_id) do
-     "https://graph.facebook.com/v2.9/act_#{ad_account_id}/adsets"
+  defp adsets_url do
+     FacebookApi.base_url <> "/adsets"
   end
 
   defp get_custom_audiences(ad_set) do
