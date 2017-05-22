@@ -7,21 +7,27 @@ defmodule FacebookApi do
     }
   end
 
-  def get_resource(acc, response = %{data: data, paging: %{next: next_url}}) do
+  def get(resource_url, params) do
+    response = request resource_url, params
+    log_progress response
+    get_resource(response[:data], response)
+  end
+
+  defp get_resource(acc, response = %{data: data, paging: %{next: next_url}}) do
     log_progress response
     get_resource(data ++ acc, request(next_url))
   end
 
-  def get_resource(acc, response = %{data: data}) do
+  defp get_resource(acc, response = %{data: data}) do
     log_progress response
     data ++ acc
   end
 
-  def request(url, params \\ %{}) do
+  defp request(url, params \\ %{}) do
     (HTTPotion.get url, query: params).body |> parse
   end
 
-  def log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
+  defp log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
     IO.puts "got block #{after_cursor}"
   end
 

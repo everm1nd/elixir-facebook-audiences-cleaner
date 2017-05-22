@@ -3,9 +3,7 @@ defmodule AdSets do
   import FacebookApiConfig
 
   def get_adsets do
-    response = request adsets_url(ad_account_id), adsets_params
-    log_progress response
-    get_resource(response[:data], response)
+    FacebookApi.get adsets_url(ad_account_id), adsets_params
   end
 
   def extract_audiences(ad_sets) do
