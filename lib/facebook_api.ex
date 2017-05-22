@@ -3,7 +3,8 @@ defmodule FacebookApi do
 
   def default_params do
     %{
-      access_token: access_token
+      access_token: access_token,
+      limit: 250
     }
   end
 
