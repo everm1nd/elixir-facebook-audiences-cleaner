@@ -8,9 +8,7 @@ defmodule FacebookApi do
   end
 
   def get(resource_url, params) do
-    response = request resource_url, params
-    log_progress response
-    get_resource(response[:data], response)
+    get_resource([], request(resource_url, params))
   end
 
   defp get_resource(acc, response = %{data: data, paging: %{next: next_url}}) do
