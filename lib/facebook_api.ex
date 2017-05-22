@@ -7,14 +7,6 @@ defmodule FacebookApi do
     }
   end
 
-  def parse(response_body) do
-    Poison.Parser.parse! response_body, keys: :atoms
-  end
-
-  def get_response_data(%{data: data}) do
-    data
-  end
-
   def get_resource(acc, response = %{data: data, paging: %{next: next_url}}) do
     log_progress response
     get_resource(data ++ acc, request(next_url))
@@ -31,5 +23,9 @@ defmodule FacebookApi do
 
   def log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
     IO.puts "got block #{after_cursor}"
+  end
+
+  defp parse(response_body) do
+    Poison.Parser.parse! response_body, keys: :atoms
   end
 end
