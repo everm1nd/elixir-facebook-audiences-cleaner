@@ -18,7 +18,7 @@ defmodule AdSets do
   end
 
   defp adsets_url do
-     FacebookApi.base_url <> "/adsets"
+     FacebookApi.ad_account_url <> "/adsets"
   end
 
   defp get_custom_audiences(ad_set) do
