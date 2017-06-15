@@ -1,5 +1,6 @@
 defmodule FacebookApi do
   import FacebookApiConfig
+  require Logger
 
   def default_params do
     Map.merge(auth_params, %{
@@ -58,6 +59,6 @@ defmodule FacebookApi do
   end
 
   defp log_progress(%{paging: %{cursors: %{after: after_cursor}}}) do
-    IO.puts "got block #{after_cursor}"
+    Logger.info "got block #{after_cursor}"
   end
 end
