@@ -1,6 +1,7 @@
 defmodule FacebookAudienceCleaner do
   require AdSets
   require Audiences
+  require Logger
 
   def clean do
     test_list = [""]
@@ -18,11 +19,10 @@ defmodule FacebookAudienceCleaner do
       |> get_ids
       |> Enum.uniq
     non_used_audiences = all_audiences -- audiences_in_use
-    IO.puts "Found #{audiences_in_use |> Enum.count} audiences in use"
-    IO.puts "Found #{all_audiences |> Enum.count} audiences total"
-    IO.puts "#{non_used_audiences |> Enum.count} audiences are not in use"
-    IO.puts "Printing IDs of not used audiences:"
-    print non_used_audiences
+    Logger.info "Found #{all_audiences |> Enum.count} audiences total"
+    Logger.info "Found #{audiences_in_use |> Enum.count} audiences in use"
+    Logger.info "#{non_used_audiences |> Enum.count} audiences are not in use"
+    non_used_audiences
   end
 
   defp delete_audiences(audiences) do
@@ -34,6 +34,6 @@ defmodule FacebookAudienceCleaner do
   end
 
   defp print(elements) do
-    Enum.each(elements, &IO.puts(&1))
+    Enum.each(elements, &Logger.info(&1))
   end
 end
