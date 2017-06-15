@@ -10,9 +10,9 @@ defmodule Audiences do
     response = FacebookApi.delete audience_url(id), auth_params
     case response do
       %{success: true} ->
-        Logger.info " Deleted audience with ID #{id}"
+        Logger.info "Deleted audience with ID #{id}"
       %{error: %{code: code, message: message}} ->
-        Logger.error " Something went wrong for ID #{id}. Error code: #{code}. Message: \"#{message}\""
+        Logger.error "Something went wrong for ID #{id}. Error code: #{code}. Message: \"#{message}\""
     end
   end
 
