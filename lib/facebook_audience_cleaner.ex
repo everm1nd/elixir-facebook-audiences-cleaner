@@ -32,8 +32,4 @@ defmodule FacebookAudienceCleaner do
   defp get_ids(elements) do
     Enum.map(elements, &(&1[:id]))
   end
-
-  defp print(elements) do
-    Enum.each(elements, &Logger.info(&1))
-  end
 end
