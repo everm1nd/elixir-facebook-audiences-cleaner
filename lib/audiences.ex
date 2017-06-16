@@ -2,11 +2,14 @@ defmodule Audiences do
   import FacebookApi
   require Logger
 
+  @delete_pause 5000
+
   def get_audiences do
     FacebookApi.get audiences_url, default_params
   end
 
   def delete(id) do
+    :timer.sleep(@delete_pause)
     response = FacebookApi.delete audience_url(id), auth_params
     case response do
       %{success: true} ->
